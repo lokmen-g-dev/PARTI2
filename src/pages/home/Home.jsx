@@ -1,0 +1,86 @@
+import Sidebar from "../../components/sidebar/Sidebar";
+import Navbar from "../../components/navbar/Navbar";
+import "./home.scss";
+import Widget from "../../components/widget/Widget";
+import Chart from "../../components/chart/Chart";
+import Featured from "../../components/featured/Featured";
+import { useLocation, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Wid from "../../components/widget/Widget copy";
+import { useState,useEffect } from "react";
+import axios from "axios";
+import Widgt from "../../components/widget/Widget copy";
+
+const Home = () => {
+const params = useParams()
+  console.log(params)
+  //nb alert
+ const [datale,setDataLe]=useState()
+  
+
+    //nb userss
+    
+    const [datalen,setDataLen]=useState()
+    const [datal,setDataL]=useState();
+    useEffect(async () => {
+      //alert liset nb
+      axios.get("http://localhost:5000/alert/send").then((res) => {
+     
+        setDataLe(res.data.length)
+        console.log(res.data.length)
+       
+      })
+      // client list nb
+      
+      const token= await localStorage.getItem("access_token")
+      console.log(token)
+      axios.get("http://localhost:5000/Client/list", { headers: {"Authorization" : `${token}`} } ).then((res) => {
+     
+       setDataLen(res.data.length)
+        console.log(res.data.length)
+       
+      });
+      //liste en attent
+      const token1= await localStorage.getItem("access_token")
+
+      axios.get("http://localhost:5000/Client/listatt", { headers: {"Authorization" : `${token1}`} } ).then((res) => {
+     
+        setDataL(res.data.length)
+        console.log(res.data.length)
+      })
+
+      
+     
+    }, [])
+  
+
+    
+  
+
+  console.log(datalen)
+  return (
+    <div className="home">
+    <Sidebar />
+    <div className="homeContainer">
+      <Navbar />
+      <div className="widgets" > 
+        <Widget title="Nombre total de publicité" len="7" />
+        <Widget title="Nombre total de commentaire" len="2" />
+        <Widget title="Nombre total d'évaluation" len="4"/>
+
+
+      </div>
+      <div className="charts">
+        <Featured />
+        <Chart title="Statistic sur l'évaluation total sur le publicité" aspect={2 / 1} />
+      </div>
+      <div className="listContainer">
+
+      </div>
+    </div>
+  </div>
+  
+  );
+};
+
+export default Home;

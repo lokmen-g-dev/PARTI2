@@ -1,0 +1,36 @@
+
+.table{
+  background-image: url('https://img.freepik.com/vecteurs-libre/fond-technologie-numerique-fil-maille-reseau_1017-27428.jpg');
+ background-repeat: no-repeat;
+  background-position: 26%;
+ background-size:contain
+}
+.table {
+  .cellWrapper {
+    display: flex;
+    align-items: center;
+    
+
+    .image {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 10px;
+      object-fit: cover;
+    }
+  }
+
+  .status {
+    padding: 5px;
+    border-radius: 5px;
+
+    &.Approved {
+      color: green;
+      background-color: rgba(0, 128, 0, 0.151);
+    }
+    &.Pending {
+      color: goldenrod;
+      background-color: rgba(189, 189, 3, 0.103);
+    }
+  }
+}
